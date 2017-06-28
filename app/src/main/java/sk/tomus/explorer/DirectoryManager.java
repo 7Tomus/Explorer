@@ -24,7 +24,13 @@ public class DirectoryManager {
     private DirectoryManager(){
         navigationHistory = new Stack<>();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(App.instance.getCurrentActivity());
-        currentDirectory = new File(prefs.getString("PREFERENCE_EDIT_DEF_FOLDER", "/"));
+        String defaultFolder;
+        if(android.os.Build.VERSION.SDK_INT > 24){
+            defaultFolder = Environment.getRootDirectory().getAbsolutePath();
+        }else{
+            defaultFolder = "/";
+        }
+        currentDirectory = new File(prefs.getString("PREFERENCE_EDIT_DEF_FOLDER", defaultFolder));
     }
 
     public static DirectoryManager getInstance(){

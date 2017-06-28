@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -63,13 +64,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             initAnim = true;
             rows = (int)(screenHeight-toolbarHeight)/61;
             recyclerViewLayoutManager = new LinearLayoutManager(this);
-            recyclerView.setBackgroundColor(getResources().getColor(R.color.colorWhiteTotal));
+            recyclerView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorWhiteTotal));
         } else {
             initAnim = true;
             int columns = Math.round(screenWidth / 160);
             rows = ((int)(screenHeight-toolbarHeight)/98)*columns;
             recyclerViewLayoutManager = new GridLayoutManager(this, columns);
-            recyclerView.setBackgroundColor(getResources().getColor(R.color.colorGrayLight));
+            recyclerView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorGrayLight));
         }
 
         recyclerView.setLayoutManager(recyclerViewLayoutManager);

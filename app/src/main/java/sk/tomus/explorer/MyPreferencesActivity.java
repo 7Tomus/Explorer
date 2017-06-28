@@ -3,6 +3,7 @@ package sk.tomus.explorer;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -38,7 +39,13 @@ public class MyPreferencesActivity extends PreferenceActivity {
                     editDirPref.setSummary("Current: " + sharedPreferences.getString(key, ""));
                 }else{
                     Toast.makeText(getActivity(),"Such directory does not exist or it is inaccessible",Toast.LENGTH_SHORT).show();
-                    sharedPreferences.edit().putString("PREFERENCE_EDIT_DEF_FOLDER","/").apply();
+                    String defaultFolder;
+                    if(android.os.Build.VERSION.SDK_INT > 24){
+                        defaultFolder = Environment.getRootDirectory().getAbsolutePath();
+                    }else{
+                        defaultFolder = "/";
+                    }
+                    sharedPreferences.edit().putString("PREFERENCE_EDIT_DEF_FOLDER",defaultFolder).apply();
                     editDirPref.setSummary("Current: " + sharedPreferences.getString(key, ""));
                 }
             }
